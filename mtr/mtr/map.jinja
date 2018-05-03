@@ -1,0 +1,30 @@
+{% set install_fio = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'mtr-tiny',
+        'prereq_packages': ['gcc','make'],
+        'install_from_source': True
+    },
+    'RedHat': {
+        'package': 'mtr',
+        'prereq_packages': ['gcc','make'],
+        'install_from_source': True
+    },    
+    'common': {
+        'mtr_source_url':  "https://www.bitwizard.nl/mtr/files/mtr-0.21.tar.gz"
+    }
+
+}, grain='os_family', merge=salt['pillar.get']('install:lookup'), default='Debian', base='common')%}
+
+{% set exec_mtr = salt['grains.filter_by']({
+    'Debian': {
+    },
+    'RedHat': {
+    },    
+    'common': {
+        'mtr_path': '/usr/local/bin/mtr',
+        'out_dir' : '/tmp/outputdata/mtr',
+        'cmd_cli_args': '-r -c 10 -x'
+    }
+
+}, grain='os_family', merge=salt['pillar.get']('mtr:execute:lookup'), default='Debian', base='common')%}
+
