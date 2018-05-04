@@ -8,8 +8,7 @@
 check_and_setup:
   cmd.run:
     - name: '{{ mtr_path }} -h'
-  file.directory:
-    - name: {{ out_dir }}
+    
 
 {% for target_host, ext_ip in salt['mine.get']('*', 'grains.get').items() %}
 
