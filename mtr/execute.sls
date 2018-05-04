@@ -23,7 +23,7 @@ run_mtr_{{target_host}}_{{ curtime }}:
     - makedirs: True
 
   cmd.run:
-    - name: '{{ base_cmd_list | join(' ') }}'
+    - name: '{{ base_cmd_list | join(' ') }} > {{ filename }}'
     - requires:
       - check_and_setup
       - file.directory
