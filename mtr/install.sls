@@ -3,7 +3,7 @@
 {% set install_from_source = mtr_map.get('install_from_source', False) %}
 
 {% if install_from_source==False %}
-install_stress_package:
+install_mtr_package:
   pkg.installed:
     - name: {{ package }}
 {% else %}

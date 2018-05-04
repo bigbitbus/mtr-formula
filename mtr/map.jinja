@@ -1,8 +1,8 @@
-{% set install_fio = salt['grains.filter_by']({
+{% set install_mtr = salt['grains.filter_by']({
     'Debian': {
         'package': 'mtr-tiny',
         'prereq_packages': ['gcc','make'],
-        'install_from_source': True
+        'install_from_source': False
     },
     'RedHat': {
         'package': 'mtr',
@@ -23,7 +23,7 @@
     'common': {
         'mtr_path': '/usr/local/bin/mtr',
         'out_dir' : '/tmp/outputdata/mtr',
-        'cmd_cli_args': '-r -c 10 -x'
+        'cmd_cli_args': '-r -c 1 -x '
     }
 
 }, grain='os_family', merge=salt['pillar.get']('mtr:execute:lookup'), default='Debian', base='common')%}
