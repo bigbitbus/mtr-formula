@@ -14,7 +14,7 @@ check_and_setup:
 
 {% set test_out_dir = [out_dir,target_host] | join('/') %}
 {% set curtime = salt['cmd.run']('date +%s') %}
-{% set filename =  ['mtr.',minion_id,'_',target_host,'_',curtime,'.xml'] | join('') %}
+{% set filename =  ['mtr.',minion_id,'_',target_host,'_',curtime,'.txt'] | join('') %}
 {% set base_cmd_list = [mtr_path,cli_args,ext_ip] %}  
 
 run_mtr_{{target_host}}_{{ curtime }}:
