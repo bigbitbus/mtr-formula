@@ -14,7 +14,7 @@ check_and_setup:
 
 {% set test_out_dir = [out_dir,target_host] | join('/') %}
 {% set curtime = salt['cmd.run']('date +%s') %}
-{% set filename =  ['mtr.',minion_id,'_',target_host,'_',curtime,'.txt'] | join('') %}
+{% set filename =  ['mtr.',minion_id,'_',target_host,'_',curtime,'.mtr'] | join('') %}
 {% set base_cmd_list = [mtr_path,cli_args,ext_ip] %}  
 
 run_mtr_{{target_host}}_{{ curtime }}:
@@ -26,7 +26,7 @@ run_mtr_{{target_host}}_{{ curtime }}:
     - names: 
       - '{{ base_cmd_list | join(' ') }} > {{ filename }}'
       - sleep 1
-      - ping google.com -c 30 -D > {{ filename }}.ping
+      - ping {{ ext_ip }} -c 30 -D > {{ filename }}.ping
     - requires:
       - check_and_setup
       - file.directory
