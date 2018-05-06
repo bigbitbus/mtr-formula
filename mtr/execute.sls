@@ -3,7 +3,7 @@
 {% set cli_args = exec_mtr_map.get ('cmd_cli_args','') %}
 {% set out_dir = exec_mtr_map.get('out_dir','/tmp/outputdata/mtr') %}
 {% set test_id = grains.get('testgitref','no_test_id_grain') %}
-{% set minion_id = grains.get('host', 'no_hostname_grain' ) %}
+{% set minion_id = grains.get('id', 'no_hostname_grain' ) %}
 
 check_and_setup:
   cmd.run:
