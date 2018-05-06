@@ -33,7 +33,7 @@ run_mtr_{{target_host}}_{{ curtime }}:
     - cwd: {{ test_out_dir }}
 {% endif %}
 
-{% if do_ping==True}
+{% if do_ping==True %}
 run_ping_{{target_host}}_{{ curtime }}:
     cmd.run:
     - names: 
