@@ -25,7 +25,7 @@ run_mtr_{{target_host}}_{{ curtime }}:
   cmd.run:
     - names: 
       - '{{ base_cmd_list | join(' ') }} > {{ filename }}'
-      - ping {{ ext_ip }} -c 30 -D > {{ filename }}.ping
+      - '/bin/ping {{ ext_ip }} -c 30 -D > {{ filename }}.ping'
     - requires:
       - check_and_setup
       - file.directory
