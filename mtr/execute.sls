@@ -4,7 +4,7 @@
 {% set out_dir = exec_mtr_map.get('out_dir','/tmp/outputdata/mtr') %}
 {% set test_id = grains.get('testgitref','no_test_id_grain') %}
 {% set minion_id = grains.get('id', 'no_hostname_grain' ) %}
-
+{% set do_ping = mtr_map.get('do_ping', True) %}
 check_and_setup:
   cmd.run:
     - name: '{{ mtr_path }} -h'
@@ -30,6 +30,7 @@ run_mtr_{{target_host}}_{{ curtime }}:
       - file.directory
     - cwd: {{ test_out_dir }}
 
+{% if do_ping==True}
 run_ping_{{target_host}}_{{ curtime }}:
     cmd.run:
     - names: 
@@ -37,6 +38,7 @@ run_ping_{{target_host}}_{{ curtime }}:
     - requires:
       - file.directory
     - cwd: {{ test_out_dir }}
+{% endif %}
 
 {% endfor %}
 
