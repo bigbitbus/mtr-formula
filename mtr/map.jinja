@@ -23,7 +23,7 @@
     'common': {
         'mtr_path': '/usr/local/bin/mtr',
         'out_dir' : '/tmp/outputdata/mtr',
-        'cmd_cli_args': '-r -b -z -w -c 10 '
+        'cmd_cli_args': '-r -b -z -w -m 50 -U 20 -c 10 '
     }
 
 }, grain='os_family', merge=salt['pillar.get']('mtr:execute:lookup'), default='Debian', base='common')%}
