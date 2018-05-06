@@ -5,10 +5,10 @@
 {% set test_id = grains.get('testgitref','no_test_id_grain') %}
 {% set minion_id = grains.get('id', 'no_hostname_grain' ) %}
 {% set do_ping = mtr_map.get('do_ping', True) %}
+
 check_and_setup:
   cmd.run:
-    - name: '{{ mtr_path }} -h'
-    
+    - name: '{{ mtr_path }} -h' 
 
 {% for target_host, ext_ip in salt['mine.get']('*', 'grains.get').items() %}
 
@@ -17,18 +17,21 @@ check_and_setup:
 {% set filename =  ['mtr.',minion_id,'_',target_host,'_',curtime] | join('') %}
 {% set base_cmd_list = [mtr_path,cli_args,ext_ip] %}  
 
-run_mtr_{{target_host}}_{{ curtime }}:
+make_dir_{{target_host}}_{{ curtime }}:
   file.directory:
     - name: {{ test_out_dir }}
     - makedirs: True
 
+{% if do_mtr==True}
+run_mtr_{{target_host}}_{{ curtime }}:
   cmd.run:
     - names: 
       - '{{ base_cmd_list | join(' ') }} > {{ filename }}.mtr'
     - requires:
       - check_and_setup
-      - file.directory
+      - make_dir_{{target_host}}_{{ curtime }}
     - cwd: {{ test_out_dir }}
+{% endif %}
 
 {% if do_ping==True}
 run_ping_{{target_host}}_{{ curtime }}:
@@ -36,7 +39,7 @@ run_ping_{{target_host}}_{{ curtime }}:
     - names: 
       - 'ping {{ ext_ip }} -c 30 -D > {{ filename }}.ping'
     - requires:
-      - file.directory
+      - make_dir_{{target_host}}_{{ curtime }}
     - cwd: {{ test_out_dir }}
 {% endif %}
 

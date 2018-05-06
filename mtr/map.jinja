@@ -24,7 +24,8 @@
         'mtr_path': '/usr/local/bin/mtr',
         'out_dir' : '/tmp/outputdata/mtr',
         'cmd_cli_args': '-r -b -z -w -m 50 -c 10 ',
-        'do_ping' : True
+        'do_ping' : True,
+        'do_mtr': True
     }
 
 }, grain='os_family', merge=salt['pillar.get']('mtr:execute:lookup'), default='Debian', base='common')%}
