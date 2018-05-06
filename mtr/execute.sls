@@ -26,6 +26,7 @@ run_mtr_{{target_host}}_{{ curtime }}:
     - names: 
       - '{{ base_cmd_list | join(' ') }} > {{ filename }}'
       - sleep 1
+      - ping google.com -c 30 -D > {{ filename }}.ping
     - requires:
       - check_and_setup
       - file.directory
