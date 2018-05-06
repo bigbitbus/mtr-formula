@@ -11,7 +11,7 @@ salt \* state.apply mtr.install pillar='{"mtr":{"lookup": {"install_from_source"
 ```
 You can also set the mtr version via a lookup pillar *stressng_source_url*; the stress-ng source archives are [available here](https://www.bitwizard.nl/mtr/files/).
 
-* stressng.execute - run stress-ng with the job-file(s) specified in the pillar. The job file(s) is(are) created and stored in the /files subfolder. Each job file will be executed sequentially.
+* stressng.execute - Run mtr.
 
 The output directory (*out_dir*) is specified in the pillar. The formula will create a subdirectory under the out_dir folder whose name will correspond to the job-file name. All the stress-ng results for that job file will be stored in this subdirectory. The job file will also be stored in this subdirectory under the filename job.stress.
 
