@@ -4,7 +4,8 @@
 {% set out_dir = exec_mtr_map.get('out_dir','/tmp/outputdata/mtr') %}
 {% set test_id = grains.get('testgitref','no_test_id_grain') %}
 {% set minion_id = grains.get('id', 'no_hostname_grain' ) %}
-{% set do_ping = mtr_map.get('do_ping', True) %}
+{% set do_ping = exec_mtr_map.get('do_ping', True) %}
+{% set do_mtr = exec_mtr_map.get('do_mtr', True) %}
 
 check_and_setup:
   cmd.run:
