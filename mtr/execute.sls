@@ -22,7 +22,7 @@ make_dir_{{target_host}}_{{ curtime }}:
     - name: {{ test_out_dir }}
     - makedirs: True
 
-{% if do_mtr==True}
+{% if do_mtr==True %}
 run_mtr_{{target_host}}_{{ curtime }}:
   cmd.run:
     - names: 
