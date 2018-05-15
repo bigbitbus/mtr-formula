@@ -33,6 +33,7 @@ run_mtr_{{target_host}}_{{ curtime }}:
       - check_and_setup
       - make_dir_{{target_host}}_{{ curtime }}
     - cwd: {{ test_out_dir }}
+    - parallel: True
 {% endif %}
 
 {% if do_ping==True %}
@@ -43,6 +44,7 @@ run_ping_{{target_host}}_{{ curtime }}:
     - requires:
       - make_dir_{{target_host}}_{{ curtime }}
     - cwd: {{ test_out_dir }}
+    - parallel: True
 {% endif %}
 
 {% if do_paping==True %}
@@ -54,6 +56,7 @@ run_paping_{{target_host}}_{{ curtime }}:
     - requires:
       - make_dir_{{target_host}}_{{ curtime }}
     - cwd: {{ test_out_dir }}
+    - parallel: True
 {% endif %}
 
 {% endfor %}
