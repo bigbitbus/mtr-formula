@@ -29,7 +29,7 @@
         'do_ping' : False,
         'do_mtr': False,
         'do_paping': True,
-        'paping_port': 22001
+        'paping_port': 22
     }
 
 }, grain='os_family', merge=salt['pillar.get']('mtr:execute:lookup'), default='Debian', base='common')%}
