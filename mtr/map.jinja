@@ -10,7 +10,9 @@
         'install_from_source': True
     },    
     'common': {
-        'mtr_source_url':  "https://www.bitwizard.nl/mtr/files/mtr-0.21.tar.gz"
+        'mtr_source_url':  "https://www.bitwizard.nl/mtr/files/mtr-0.21.tar.gz",
+        'paping_url': "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/paping/paping_1.5.5_x86-64_linux.tar.gz",
+        'install_paping': True
     }
 
 }, grain='os_family', merge=salt['pillar.get']('install:lookup'), default='Debian', base='common')%}
@@ -25,7 +27,9 @@
         'out_dir' : '/tmp/outputdata/mtr',
         'cmd_cli_args': '-r -b -z -w -m 50 -c 10 ',
         'do_ping' : True,
-        'do_mtr': True
+        'do_mtr': True,
+        'do_paping': True,
+        'paping_port': 22001
     }
 
 }, grain='os_family', merge=salt['pillar.get']('mtr:execute:lookup'), default='Debian', base='common')%}

@@ -6,6 +6,7 @@
 {% set minion_id = grains.get('id', 'no_hostname_grain' ) %}
 {% set do_ping = exec_mtr_map.get('do_ping', True) %}
 {% set do_mtr = exec_mtr_map.get('do_mtr', True) %}
+{% set do_paping = exec_mtr_map.get('do_paping', True) %}
 
 check_and_setup:
   cmd.run:
@@ -39,6 +40,17 @@ run_ping_{{target_host}}_{{ curtime }}:
     cmd.run:
     - names: 
       - 'ping {{ ext_ip }} -c 30 -D > {{ filename }}.ping'
+    - requires:
+      - make_dir_{{target_host}}_{{ curtime }}
+    - cwd: {{ test_out_dir }}
+{% endif %}
+
+{% if do_paping==True %}
+{% set paping_port = exec_mtr_map.get('paping_port','22001')  %}
+run_paping_{{target_host}}_{{ curtime }}:
+    cmd.run:
+    - names: 
+      - 'paping -p {{ paping_port }} -c 30 --nocolor {{ ext_ip }}  > {{ filename }}.paping'
     - requires:
       - make_dir_{{target_host}}_{{ curtime }}
     - cwd: {{ test_out_dir }}
